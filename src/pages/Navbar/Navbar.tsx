@@ -10,12 +10,15 @@ import {
   NavigationMenuViewport,
 } from "@/components/ui/navigation-menu";
 import { Link, NavLink } from "react-router-dom";
+import { aai_logo_1 } from "../../assets/index.js";
 
 export default function Navbar() {
   return (
-    <div className="flex justify-between items-center border px-2 py-1 rounded-lg">
+    <div className="border-b-2 flex justify-between items-center p-2">
       <div>
-        <Link to="/">attendAI</Link>
+        <Link to="/">
+          <img src={aai_logo_1} className="h-12 mx-4" alt="aai_logo" />
+        </Link>
       </div>
       <NavigationMenu>
         <NavigationMenuList>
@@ -41,7 +44,7 @@ export default function Navbar() {
           </NavigationMenuItem>
           <NavigationMenuItem>
             <NavLink
-              to="/admin"
+              to="/auth/admin"
               className={({ isActive }) =>
                 isActive ? "text-orange-400 mx-4" : "mx-4"
               }
@@ -51,7 +54,9 @@ export default function Navbar() {
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
-      <ModeToggle />
+      <div className="mr-4">
+        <ModeToggle />
+      </div>
     </div>
   );
 }

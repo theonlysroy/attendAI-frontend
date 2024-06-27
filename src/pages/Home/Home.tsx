@@ -4,19 +4,8 @@ import { Link } from "react-router-dom";
 
 export default function Home() {
   return (
-    <div className="flex flex-col gap-8 max-w-md mx-auto">
-      <Button>
-        <Link to="/admin">Admin Login</Link>
-      </Button>
-      <Button>
-        <Link to="/auth/register">Student Register</Link>
-      </Button>
-      <Button>
-        <Link to="/auth/login">Student Login</Link>
-      </Button>
-      <Button>
-        <Link to="/student">Student Dashboard</Link>
-      </Button>
+    <div className="h-full flex justify-center items-center text-[10vw] text-muted-foreground/15 poppins-semibold leading-none tracking-tighter">
+      Home.
     </div>
   );
 }

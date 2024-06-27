@@ -10,6 +10,9 @@ import StudentLayout from "./pages/Student/StudentLayout";
 import Attendance from "./pages/Student/Attendance";
 import Report from "./pages/Student/Report";
 import Notices from "./pages/Student/Notices";
+import Sidebar from "./pages/Student/Sidebar";
+import SideDrawer from "./pages/Sidebar/Sidebar";
+import ResetPass from "./pages/Auth/ResetPass";
 
 const router = createBrowserRouter([
   // Layout 1 (Home page layout)
@@ -22,16 +25,25 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "auth/register",
-        element: <Register />,
-      },
-      {
-        path: "auth/login",
-        element: <Login />,
-      },
-      {
-        path: "admin",
-        element: <AdminLogin />,
+        path: "auth",
+        children: [
+          {
+            path: "register",
+            element: <Register />,
+          },
+          {
+            path: "login",
+            element: <Login />,
+          },
+          {
+            path: "resetpass",
+            element: <ResetPass />,
+          },
+          {
+            path: "admin",
+            element: <AdminLogin />,
+          },
+        ],
       },
     ],
   },
