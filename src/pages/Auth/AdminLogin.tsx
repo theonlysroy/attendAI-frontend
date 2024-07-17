@@ -10,7 +10,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-export function AdminLogin() {
+export default function AdminLogin() {
   return (
     <div className="w-full h-full flex justify-center items-center">
       <Card className="mx-auto max-w-xl">
