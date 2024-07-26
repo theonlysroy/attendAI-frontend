@@ -12,6 +12,10 @@ import Notices from "./pages/Student/Notices";
 import ResetPass from "./pages/Auth/ResetPass";
 import DashPage from "./pages/Dashboard/DashPage";
 import Register from "./pages/Auth/Register";
+import DownloadID from "./pages/Student/DownloadID";
+import NoticeDetails from "./pages/Student/NoticeDetails";
+import Profile from "./pages/Student/Profile";
+import Landing from "./pages/Home/Landing";
 
 const router = createBrowserRouter([
   {
@@ -25,7 +29,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <Home />,
+        element: <Landing />,
       },
       {
         path: "auth",
@@ -74,6 +78,18 @@ const router = createBrowserRouter([
       {
         path: "notices",
         element: <Notices />,
+      },
+      {
+        path: "notices/:noticeId",
+        element: <NoticeDetails />,
+      },
+      {
+        path: "idcard",
+        element: <DownloadID />,
+      },
+      {
+        path: "profile",
+        element: <Profile />,
       },
     ],
   },

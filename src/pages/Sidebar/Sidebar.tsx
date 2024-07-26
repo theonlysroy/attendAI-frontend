@@ -24,7 +24,7 @@ function Sidebar() {
   };
   return (
     <div
-      className={`flex flex-col h-full border-r bg-muted/40 overflow-y-auto transition-all ease-in-out duration-500 ${isOpen ? "w-64" : "w-fit"}`}
+      className={`flex flex-col overflow-y-auto transition-all ease-in-out duration-500 ${isOpen ? "w-64" : "w-fit"}`}
     >
       <div className="flex flex-col flex-1 p-4 overflow-y-auto">
         <div className="flex items-center justify-between">

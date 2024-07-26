@@ -1,17 +1,16 @@
 {
   "compilerOptions": {
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "target": "ES2022",
     "jsx": "react-jsx",
+    "module": "ESNext",
+    "moduleResolution": "Node",
     "baseUrl": ".",
-    // "lib": [
-    //   "ES2020",
-    //   "DOM"
-    // ],
-    // "esModuleInterop": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "allowSyntheticDefaultImports": true,
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
+      "@/*": ["./src/*"]
     }
   }
 }
