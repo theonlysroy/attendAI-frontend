@@ -9,10 +9,25 @@ import {
   NavigationMenuTrigger,
   NavigationMenuViewport,
 } from "@/components/ui/navigation-menu";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { aai_logo_1 } from "../../assets/index.js";
+import { useEffect, useState } from "react";
+import { jwtDecode } from "jwt-decode";
 
 export default function Navbar() {
+  const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+      const student = jwtDecode(accessToken);
+      if (!student) {
+        localStorage.removeItem("accessToken");
+      } else {
+        setIsLoggedIn(true);
+      }
+    }
+  }, []);
   return (
     <div className="fixed w-full bg-neutral-300 z-30 backdrop-blur-md dark:bg-neutral-950 flex justify-between items-center p-2">
       <div>
@@ -42,6 +57,16 @@ export default function Navbar() {
               Signup
             </NavLink>
           </NavigationMenuItem>
+          {isLoggedIn && (
+            <NavigationMenuItem>
+              <NavLink
+                to="/student"
+                className="text-primary font-semibold ml-10"
+              >
+                Dashboard
+              </NavLink>
+            </NavigationMenuItem>
+          )}
         </NavigationMenuList>
       </NavigationMenu>
       <div className="mr-4">

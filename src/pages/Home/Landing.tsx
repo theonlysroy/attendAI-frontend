@@ -1,7 +1,9 @@
 import { BackgroundBeams } from "@/components/ui/background-beams";
 import { motion } from "framer-motion";
+import { jwtDecode } from "jwt-decode";
 import { Github } from "lucide-react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 const listData = [
   "Straightforward signup with College Roll No",
