@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Activity,
   ArrowUpRight,
@@ -44,8 +44,47 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 
 export default function Dashboard() {
+  const navigate = useNavigate();
+  const [students, setStudents] = useState("");
+  const [teachers, setTeachers] = useState("");
+  const [notices, setNotices] = useState([]);
+  const [totalClasses, setTotalClasses] = useState(0);
+
+  async function getDashboard() {
+    const accessToken = localStorage.getItem("accessToken");
+    const response = await axios.get("http://localhost:8000/auth/dashboard", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    // console.log(await response.data);
+    setStudents(response.data.data.student);
+    setTeachers(response.data.data.teacher);
+    setNotices(response.data.data.notices);
+    setTotalClasses(response.data.data.totalClasses);
+  }
+
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    if (token) {
+      const student = jwtDecode(token);
+      if (!student) {
+        localStorage.removeItem("accessToken");
+        navigate("/auth/login");
+      } else {
+        getDashboard();
+        navigate("/student");
+      }
+    } else {
+      navigate("/auth/login");
+    }
+  }, []);
   return (
     <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
       <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
@@ -57,17 +96,19 @@ export default function Dashboard() {
             <Users2 className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">50</div>
+            <div className="text-2xl font-bold">{students}</div>
             <p className="text-xs text-muted-foreground"></p>
           </CardContent>
         </Card>
-        <Card x-chunk="dashboard-01-chunk-1">
+        <Card x-chunk="dashboard-01-chunk-0">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Subjects</CardTitle>
-            <Book className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium">
+              Faculty Members
+            </CardTitle>
+            <Users2 className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">10</div>
+            <div className="text-2xl font-bold">{teachers}</div>
             <p className="text-xs text-muted-foreground"></p>
           </CardContent>
         </Card>
@@ -79,7 +120,7 @@ export default function Dashboard() {
             <BarChart className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">5</div>
+            <div className="text-2xl font-bold">{totalClasses}</div>
             <p className="text-xs text-muted-foreground"></p>
           </CardContent>
         </Card>
@@ -109,22 +150,21 @@ export default function Dashboard() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                <TableRow>
-                  <TableCell>
-                    <div className="font-medium">
-                      Activity schedule for sem - VI honours and general
-                    </div>
-                    <div className="hidden text-sm text-muted-foreground md:inline">
-                      Dr. Sarbojit Sarkar
-                    </div>
-                  </TableCell>
-                  <TableCell className="text-right">26-04-2024</TableCell>
-                </TableRow>
+                {notices.map((notice: any) => (
+                  <TableRow key={notice._id}>
+                    <TableCell>
+                      <div className="font-medium">{notice.title}</div>
+                    </TableCell>
+                    <TableCell className="text-right">
+                      {new Date(notice.createdAt).toISOString().split("T")[0]}
+                    </TableCell>
+                  </TableRow>
+                ))}
               </TableBody>
             </Table>
           </CardContent>
         </Card>
-        <Card x-chunk="dashboard-01-chunk-5">
+        {/* <Card x-chunk="dashboard-01-chunk-5">
           <CardHeader>
             <CardTitle>Recent Classes</CardTitle>
           </CardHeader>
@@ -140,7 +180,7 @@ export default function Dashboard() {
               </Link>
             </div>
           </CardContent>
-        </Card>
+        </Card> */}
       </div>
     </main>
   );

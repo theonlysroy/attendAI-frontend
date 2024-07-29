@@ -12,6 +12,9 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
+import { useEffect } from "react";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -20,6 +23,22 @@ const formSchema = z.object({
 });
 
 export default function Profile() {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    console.log(accessToken);
+    if (accessToken) {
+      const student = jwtDecode(accessToken);
+      if (!student) {
+        localStorage.removeItem("accessToken");
+        navigate("/auth/login");
+      } else {
+        navigate("/student/profile");
+      }
+    } else {
+      navigate("/auth/login");
+    }
+  }, []);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {

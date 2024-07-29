@@ -16,6 +16,7 @@ import DownloadID from "./pages/Student/DownloadID";
 import NoticeDetails from "./pages/Student/NoticeDetails";
 import Profile from "./pages/Student/Profile";
 import Landing from "./pages/Home/Landing";
+import Logout from "./pages/Student/Logout";
 
 const router = createBrowserRouter([
   {
@@ -90,6 +91,10 @@ const router = createBrowserRouter([
       {
         path: "profile",
         element: <Profile />,
+      },
+      {
+        path: "logout",
+        element: <Logout />,
       },
     ],
   },

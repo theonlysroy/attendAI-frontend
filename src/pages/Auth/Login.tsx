@@ -25,7 +25,6 @@ const Login: React.FC = () => {
     const img = webcamRef.current?.getScreenshot();
     setAvatar(img);
     setCaptureDisable(true);
-    // console.log(img);
   }, [webcamRef]);
 
   const reset = () => {
@@ -38,16 +37,19 @@ const Login: React.FC = () => {
     try {
       const response = await axios.post("http://localhost:8000/auth/login", {
         collegeRollNo,
-        avatar,
+        imageData: avatar,
       });
-      console.log(response);
+      // console.log(response.data.data);
       if (response.data.success) {
+        localStorage.setItem("accessToken", response.data.data.student);
         navigate("/student");
-      } else {
-        console.log("error response");
       }
     } catch (error) {
-      console.error("Error loggin in: ", error);
+      // console.error("Error loggin in: ", error);
+      alert("Invalid Roll No. or Face-ID");
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     }
   };
   return (

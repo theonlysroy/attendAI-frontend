@@ -15,6 +15,9 @@ import {
   ChartLegend,
   ChartLegendContent,
 } from "@/components/ui/chart";
+import { jwtDecode } from "jwt-decode";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
 const chartConfig = {
   totalClass: {
@@ -28,6 +31,22 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export default function Report() {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    console.log(accessToken);
+    if (accessToken) {
+      const student = jwtDecode(accessToken);
+      if (!student) {
+        localStorage.removeItem("accessToken");
+        navigate("/auth/login");
+      } else {
+        navigate("/student/report");
+      }
+    } else {
+      navigate("/auth/login");
+    }
+  }, []);
   return (
     <main className="flex flex-col gap-10 justify-center items-center m-auto h-full">
       <ChartContainer

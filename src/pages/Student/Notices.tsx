@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/table";
 import { SquareArrowOutUpRightIcon } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
 export interface Notice {
   noticeId: number;
@@ -28,13 +29,26 @@ export default function Notices() {
     setAllNotices(noticeData);
   };
   useEffect(() => {
-    getAllNotices();
+    const accessToken = localStorage.getItem("accessToken");
+    console.log(accessToken);
+    if (accessToken) {
+      const student = jwtDecode(accessToken);
+      if (!student) {
+        localStorage.removeItem("accessToken");
+        navigate("/auth/login");
+      } else {
+        getAllNotices();
+        navigate("/student/notices");
+      }
+    } else {
+      navigate("/auth/login");
+    }
   }, []);
 
   return (
     <div className="max-w-full mx-auto py-10">
-      <h1 className="text-3xl mb-10">All Notices</h1>
-      <Table className="w-full text-xl">
+      <h1 className="text-5xl mb-10 text-center font-semibold">All Notices</h1>
+      <Table className="max-w-[80%] m-auto text-xl">
         <TableHeader>
           <TableRow>
             <TableHead className="">NoticeId</TableHead>
@@ -43,6 +57,11 @@ export default function Notices() {
           </TableRow>
         </TableHeader>
         <TableBody>
+          {allNotices.length === 0 && (
+            <TableRow className="text-xl mt-10">
+              <TableCell>No notices found</TableCell>
+            </TableRow>
+          )}
           {allNotices.map((notice) => (
             <TableRow key={notice.noticeId}>
               <TableCell className="font-medium">{notice.noticeId}</TableCell>

@@ -6,6 +6,7 @@ import axios from "axios";
 export default function NoticeDetails() {
   const { noticeId } = useParams();
   const [notice, setNotice] = useState<Notice>();
+
   useEffect(() => {
     const getNotice = async () => {
       const response = await axios.get(

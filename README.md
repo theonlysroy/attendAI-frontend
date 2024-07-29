@@ -1,14 +1,28 @@
-<h1 align="center">attendAI frontend</h1>
+<h1 align="center">attendAI-frontend</h1>
 
 ## developed using
 
 - Vite React
 - Typescript
 - Shadcn UI
+- Acertenity UI
 - Tailwindcss
 - react-router-dom
-- Zustand
-  and a lot more ...
+
+## Requirements and Installation
+
+To run this project, you need to have the following software installed on your computer:
+
+- **Git**
+- **Node.js**
+- **npm** (comes with Node.js) or any other package manager like (bun, yarn, pnpm)
+- The backend (server & database) needs to be up and running for fully functional of the frontend
+  > backend setup instructions can be found [here](https://github.com/theonlysroy/attendAI-backend)
+
+### Installation
+
+- [Git](https://git-scm.com/downloads)
+- [Node.js](https://nodejs.org/en/download/) (version 16.13.0 or higher)
 
 ## To run the project
 
