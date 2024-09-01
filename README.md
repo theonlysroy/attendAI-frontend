@@ -47,3 +47,22 @@ npm run dev   # to start the project
 ```
 
 - go to `https://localhost:5173` to view the project
+
+## Screenshots
+- Register Page
+![Register](./project_images/Picture1.png "Register page")  
+
+- Login Page
+![Login](./project_images/Picture2.png "Login page")  
+
+- Dashboard Page
+![Dashboard](./project_images/Picture3.png "Dashboard page")  
+
+- Attendance Page
+![Attendance](./project_images/Picture4.png "Attendance page")  
+
+- Routine Page
+![Routine](./project_images/Picture5.png "Routine page")  
+
+- Notices Page
+![Notices](./project_images/Picture6.png "Notices page")

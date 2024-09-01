@@ -60,11 +60,11 @@ export default function Dashboard() {
     const accessToken = localStorage.getItem("accessToken");
     const response = await axios.get("http://localhost:8000/auth/dashboard", {
       headers: {
-        "Content-Type": "application/json",
+        // "Content-Type": "application/json",
         Authorization: `Bearer ${accessToken}`,
       },
     });
-    // console.log(await response.data);
+    console.log(await response.data.data);
     setStudents(response.data.data.student);
     setTeachers(response.data.data.teacher);
     setNotices(response.data.data.notices);
