@@ -1,4 +1,5 @@
 <h1 align="center">attendAI-frontend</h1>
+<img src="./project_images/home.png" alt="homepage">
 
 ## developed using
 
